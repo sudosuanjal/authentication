@@ -1,14 +1,18 @@
 import express from "express";
 import authRoutes from "./auth/auth.js";
+import { configDotenv } from "dotenv";
+import { run } from "./database/connectDB.js";
 
 const app = express();
-
+configDotenv();
 app.get("/", (rep, res) => {
   res.send("hello from the server");
+  console.log(process.env.DATABASE_URI);
 });
 
 app.use("/auth", authRoutes);
 
 app.listen(3000, () => {
+  run();
   console.log("listening on port 3000..");
 });
