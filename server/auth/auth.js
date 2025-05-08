@@ -1,17 +1,50 @@
 import express from "express";
+import { User } from "../models/user.model.js";
+import bcrypt from "bcryptjs";
+
 const router = express.Router();
 
-const signIn = async (rep, res) => {};
+const signIn = async (req, res) => {
+  const { email, password, name } = req.body;
+  try {
+    if (!email || !password || !name) {
+      return res.status(400).json({ message: "all values are required" });
+    }
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ message: "user already exists" });
+    }
 
-const signUp = async (rep, res) => {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const verificationCode = Math.floor(
+      100000 + Math.random() * 900000
+    ).toString();
+
+    const newUser = new User({
+      email,
+      password: hashedPassword,
+      name,
+      verificationCode,
+      verificationExpires: new Date(Date.now() + 12 * 60 * 60 * 1000), // 12 hours
+    });
+
+    await newUser.save();
+
+    res.status(201).json({ message: "User created", user: newUser });
+  } catch (error) {
+    res.status(500).json({ message: "server error", error: error.message });
+  }
+};
+
+const signUp = async (req, res) => {
   res.send("hello from signUp");
 };
 
-const logIn = async (rep, res) => {
+const logIn = async (req, res) => {
   res.send("hello from logIn");
 };
 
-router.get("/signIn", signIn);
+router.post("/signIn", signIn);
 router.get("/signUp", signUp);
 router.get("/logIn", logIn);
 
