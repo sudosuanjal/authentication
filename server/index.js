@@ -1,7 +1,7 @@
 import express from "express";
 import authRoutes from "./auth/auth.js";
 import { configDotenv } from "dotenv";
-import { run } from "./database/connectDB.js";
+import { connect } from "./database/connectDB.js";
 
 const app = express();
 configDotenv();
@@ -13,6 +13,6 @@ app.get("/", (rep, res) => {
 app.use("/auth", authRoutes);
 
 app.listen(3000, () => {
-  run();
+  connect();
   console.log("listening on port 3000..");
 });
