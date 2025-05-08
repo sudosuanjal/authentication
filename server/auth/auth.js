@@ -1,9 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-const signIn = async (rep, res) => {
-  res.send("hello from signIn");
-};
+const signIn = async (rep, res) => {};
 
 const signUp = async (rep, res) => {
   res.send("hello from signUp");
