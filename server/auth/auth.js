@@ -1,6 +1,7 @@
 import express from "express";
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import { tokenGenerator } from "../utils/tokenGenerator.js";
 
 const router = express.Router();
 
@@ -30,7 +31,15 @@ const signIn = async (req, res) => {
 
     await newUser.save();
 
-    res.status(201).json({ message: "User created", user: newUser });
+    tokenGenerator(res, newUser._id);
+
+    res.status(201).json({
+      message: "User created",
+      user: {
+        ...newUser._doc,
+        password: null,
+      },
+    });
   } catch (error) {
     res.status(500).json({ message: "server error", error: error.message });
   }

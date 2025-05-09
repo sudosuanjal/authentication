@@ -5,6 +5,8 @@ import { connect } from "./database/connectDB.js";
 
 const app = express();
 configDotenv();
+app.use(express.json());
+
 app.get("/", (rep, res) => {
   res.send("hello from the server");
   console.log(process.env.DATABASE_URI);
