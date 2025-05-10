@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "can't be blank"],
     },
     lastLogin: {
-      type: String,
+      type: Date,
       default: Date.now,
     },
     isVerified: {

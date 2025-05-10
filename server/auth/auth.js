@@ -5,7 +5,7 @@ import { tokenGenerator } from "../utils/tokenGenerator.js";
 
 const router = express.Router();
 
-const signIn = async (req, res) => {
+const signUp = async (req, res) => {
   const { email, password, name } = req.body;
   try {
     if (!email || !password || !name) {
@@ -45,7 +45,7 @@ const signIn = async (req, res) => {
   }
 };
 
-const signUp = async (req, res) => {
+const signIn = async (req, res) => {
   res.send("hello from signUp");
 };
 
@@ -54,7 +54,7 @@ const logIn = async (req, res) => {
 };
 
 router.post("/signIn", signIn);
-router.get("/signUp", signUp);
-router.get("/logIn", logIn);
+router.post("/signUp", signUp);
+router.post("/logIn", logIn);
 
 export default router;
