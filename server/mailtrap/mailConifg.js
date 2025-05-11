@@ -13,11 +13,6 @@ const sender = {
   email: "hello@demomailtrap.co",
   name: "Mailtrap Test",
 };
-const recipients = [
-  {
-    email: "anjal_22b121cs@gecwyd.ac.in",
-  },
-];
 
 client
   .send({
