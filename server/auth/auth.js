@@ -11,6 +11,13 @@ const signUp = async (req, res) => {
     if (!email || !password || !name) {
       return res.status(400).json({ message: "all values are required" });
     }
+
+    if (password.length < 8) {
+      return res
+        .status(400)
+        .json({ message: "Password must be at least 8 characters long" });
+    }
+
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "user already exists" });
@@ -22,7 +29,7 @@ const signUp = async (req, res) => {
     ).toString();
 
     const newUser = new User({
-      email,
+      email: email.toLowerCase().trim(),
       password: hashedPassword,
       name,
       verificationCode,
