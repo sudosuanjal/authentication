@@ -18,7 +18,7 @@ const signUp = async (req, res) => {
         .json({ message: "Password must be at least 8 characters long" });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: email.toLowerCase().trim() });
     if (user) {
       return res.status(400).json({ message: "user already exists" });
     }
