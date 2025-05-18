@@ -12,7 +12,7 @@ app.get("/", (rep, res) => {
   console.log(process.env.DATABASE_URI);
 });
 
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(3000, () => {
   connect();

@@ -2,8 +2,10 @@ import express from "express";
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { tokenGenerator } from "../utils/tokenGenerator.js";
-import { sendVerifyEmail } from "../mailtrap/sendVerifyEmail.js";
-import { verify } from "jsonwebtoken";
+import {
+  sendVerifyEmail,
+  sentWelcomeMail,
+} from "../mailtrap/sendVerifyEmail.js";
 
 const router = express.Router();
 
@@ -88,6 +90,8 @@ const verifyEmail = async (req, res) => {
     user.verificationCode = undefined;
     user.verificationExpires = undefined;
     await user.save();
+
+    await sentWelcomeMail(user.email, user.name);
 
     return res
       .status(200)
