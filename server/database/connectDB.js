@@ -1,5 +1,7 @@
+import { configDotenv } from "dotenv";
 import mongoose from "mongoose";
 
+configDotenv();
 export async function connect() {
   try {
     await mongoose.connect(process.env.DATABASE_URI);
