@@ -13,7 +13,7 @@ export const login = async (req, res) => {
 
     const passwordIsSame = await bcrypt.compare(password, user.password);
     if (!passwordIsSame) {
-      return res.status(401).json({ message: "wrong passord exists." });
+      return res.status(401).json({ message: "wrong passord." });
     }
 
     tokenGenerator(res, user._id);
