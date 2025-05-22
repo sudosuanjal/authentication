@@ -1,11 +1,14 @@
 import express from "express";
+import cookieParser from "cookie-parser";
 import authRoutes from "./auth/auth.js";
 import { configDotenv } from "dotenv";
 import { connect } from "./database/connectDB.js";
 
 const app = express();
 configDotenv();
+
 app.use(express.json());
+app.use(cookieParser());
 
 app.get("/", (rep, res) => {
   res.send("hello from the server");

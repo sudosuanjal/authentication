@@ -8,6 +8,8 @@ import { resetPassword } from "./controllers/resetpassword.controller.js";
 
 const router = express.Router();
 
+router.get("/verify-auth", verifyAuth, authenticateUser);
+
 router.post("/logOut", logOut);
 router.post("/signUp", signUp);
 router.post("/logIn", login);
