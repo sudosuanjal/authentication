@@ -1,4 +1,7 @@
 import express from "express";
+
+import { verifyAuth } from "../middleware/verifyAuth.middleware.js";
+import { authenticateUser } from "./controllers/authenticateUser.controller.js";
 import { verifyEmail } from "./controllers/verifyEmail.controller.js";
 import { logOut } from "./controllers/logOut.controller.js";
 import { signUp } from "./controllers/signUp.controller.js";

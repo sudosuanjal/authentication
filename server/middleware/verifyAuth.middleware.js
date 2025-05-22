@@ -9,7 +9,7 @@ export const verifyAuth = async (req, res, next) => {
 
     const decode = jwt.verify(token, process.env.JWT_SECRET);
     console.log("user id: " + decode.userId);
-    req.userId = decode;
+    req.userId = decode.userId;
 
     next();
   } catch (error) {
