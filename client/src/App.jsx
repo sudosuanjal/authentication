@@ -1,12 +1,17 @@
-import { Button } from "@/components/ui/button";
+import { Route, Routes } from "react-router";
+import Home from "./pages/Home";
+import { Login } from "./pages/Login";
+import { Signup } from "./pages/Signup";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <div className="flex flex-col items-center justify-center min-h-svh">
-        <Button variant="secondary">Click me</Button>
-      </div>
+      <Routes>
+        <Route index element={<Home />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </>
   );
 }
