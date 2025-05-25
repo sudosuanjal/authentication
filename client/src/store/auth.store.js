@@ -1,8 +1,21 @@
+import axios from "axios";
 import { create } from "zustand";
 
 const useStore = create((set) => ({
-  bears: 0,
-  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-  removeAllBears: () => set({ bears: 0 }),
-  updateBears: (newBears) => set({ bears: newBears }),
+  user: null,
+  isAuthenticated: null,
+  error: null,
+  signup: async (email, password, name) => {
+    try {
+      const response = await axios.post(`${BACKEND_URL}/signup`, {
+        email,
+        password,
+        name,
+      });
+      set({ user: response.data.user, isAuthenticated: true });
+    } catch (error) {
+      set({ error: error.response.data.message });
+      throw error;
+    }
+  },
 }));
