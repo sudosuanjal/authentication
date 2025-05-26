@@ -19,7 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useStore } from "@/store/auth.store";
+import { useToast } from "@/hooks/use-toast";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -34,6 +36,10 @@ const FormSchema = z.object({
 });
 
 export function Signup() {
+  const { signup } = useStore();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -43,7 +49,21 @@ export function Signup() {
     },
   });
 
-  function onSubmit(data) {}
+  async function onSubmit(data) {
+    try {
+      const response = await signup(data.email, data.password, data.name);
+      form.reset();
+      navigate("/verify-email");
+    } catch (error) {
+      console.error("Signup error:", error.response?.data?.message);
+      toast({
+        title: "Signup Failed",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

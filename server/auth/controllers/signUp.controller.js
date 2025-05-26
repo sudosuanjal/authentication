@@ -6,12 +6,16 @@ import { tokenGenerator } from "../../utils/tokenGenerator.js";
 
 export const signUp = async (req, res) => {
   try {
+    console.log("reachedd");
+
     const { email, password, name } = req.body;
+    console.log({ email, password, name });
 
     // Validate input
     if (!email || !password || !name) {
       return res.status(400).json({ message: "All fields are required." });
     }
+    console.log(password);
 
     if (password.length < 8) {
       return res
