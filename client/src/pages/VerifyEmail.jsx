@@ -11,10 +11,32 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { Button } from "@/components/ui/button";
+import { useStore } from "@/store/auth.store";
+import { toast } from "@/hooks/use-toast";
 
 const VerifyEmail = () => {
   const [value, setValue] = useState("");
+  const { verify } = useStore();
+  const navigate = useNavigate();
+
+  async function onSubmit(value) {
+    try {
+      console.log("value: " + value);
+
+      const response = await verify(value);
+      navigate("/");
+    } catch (error) {
+      console.error("verification error:", error.response?.data?.message);
+      toast({
+        title: "verification failed",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
@@ -50,9 +72,12 @@ const VerifyEmail = () => {
                   <InputOTPSlot index={5} />
                 </InputOTPGroup>
               </InputOTP>
+              <Button variant="secondary" onClick={() => onSubmit(value)}>
+                {" "}
+                Verify Email
+              </Button>
             </div>
           </div>
-
           <p className="text-sm text-center pt-2">
             {" "}
             <Link to={"/login"} className="text-blue-500">
