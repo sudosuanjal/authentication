@@ -11,8 +11,6 @@ export const useStore = create((set) => ({
   signup: async (email, password, name) => {
     set({ isLoading: true });
     try {
-      console.log("Sending signup data:" + email);
-
       const response = await axios.post(`${BACKEND_URL}/signup`, {
         email,
         password,
@@ -24,7 +22,7 @@ export const useStore = create((set) => ({
         isLoading: false,
       });
     } catch (error) {
-      set({ isLoading: false });
+      set({ isLoading: false, isAuthenticated: false });
       throw error;
     }
   },
@@ -35,9 +33,13 @@ export const useStore = create((set) => ({
         code,
       });
 
-      set({ user: response.data.user, isLoading: false });
+      set({
+        user: response.data.user,
+        isLoading: false,
+        isAuthenticated: true,
+      });
     } catch (error) {
-      set({ isLoading: false });
+      set({ isLoading: false, isAuthenticated: false });
       throw error;
     }
   },
@@ -48,9 +50,13 @@ export const useStore = create((set) => ({
         email,
         password,
       });
-      set({ user: response.data.user, isLoading: false });
+      set({
+        user: response.data.user,
+        isLoading: false,
+        isAuthenticated: true,
+      });
     } catch (error) {
-      set({ isLoading: false });
+      set({ isLoading: false, isAuthenticated: false });
       throw error;
     }
   },
