@@ -6,8 +6,6 @@ import { tokenGenerator } from "../../utils/tokenGenerator.js";
 
 export const signUp = async (req, res) => {
   try {
-    console.log("reachedd");
-
     const { email, password, name } = req.body;
     console.log({ email, password, name });
 

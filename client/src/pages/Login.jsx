@@ -19,7 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useStore } from "@/store/auth.store";
+import { toast } from "@/hooks/use-toast";
 
 const FormSchema = z.object({
   email: z.string().email({
@@ -31,6 +33,9 @@ const FormSchema = z.object({
 });
 
 export function Login() {
+  const { login } = useStore();
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -39,7 +44,20 @@ export function Login() {
     },
   });
 
-  function onSubmit(data) {}
+  async function onSubmit(data) {
+    try {
+      const response = await login(data.email, data.password);
+      navigate("/");
+    } catch (error) {
+      console.error("login error:", error.response?.data?.message);
+      toast({
+        title: "login failed",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

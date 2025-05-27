@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BarChart } from "lucide-react";
 import { create } from "zustand";
 
 const BACKEND_URL = "http://localhost:3000/api/auth";
@@ -8,7 +9,7 @@ export const useStore = create((set) => ({
   isAuthenticated: null,
   isLoading: null,
   signup: async (email, password, name) => {
-    set({ isLoading: true, error: null });
+    set({ isLoading: true });
     try {
       console.log("Sending signup data:" + email);
 
@@ -23,7 +24,7 @@ export const useStore = create((set) => ({
         isLoading: false,
       });
     } catch (error) {
-      set({ error: error.response.data.message, isLoading: false });
+      set({ isLoading: false });
       throw error;
     }
   },
@@ -34,6 +35,19 @@ export const useStore = create((set) => ({
         code,
       });
 
+      set({ user: response.data.user, isLoading: false });
+    } catch (error) {
+      set({ isLoading: false });
+      throw error;
+    }
+  },
+  login: async (email, password) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(`${BACKEND_URL}/login`, {
+        email,
+        password,
+      });
       set({ user: response.data.user, isLoading: false });
     } catch (error) {
       set({ isLoading: false });
