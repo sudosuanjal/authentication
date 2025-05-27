@@ -5,7 +5,7 @@ import { Signup } from "./pages/Signup";
 import VerifyEmail from "./pages/VerifyEmail";
 import { Toaster } from "./components/ui/toaster";
 import { useStore } from "./store/auth.store";
-import { use } from "react";
+import { use, useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
@@ -31,6 +31,11 @@ const AuthenticatedUserRoute = ({ children }) => {
 };
 
 function App() {
+  const { checkAuth } = useStore();
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
   return (
     <>
       <Routes>

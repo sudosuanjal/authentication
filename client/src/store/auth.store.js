@@ -6,7 +6,6 @@ const BACKEND_URL = "http://localhost:3000/api/auth";
 
 axios.defaults.withCredentials = true;
 
-
 export const useStore = create((set) => ({
   user: null,
   isAuthenticated: null,
@@ -61,6 +60,15 @@ export const useStore = create((set) => ({
     } catch (error) {
       set({ isLoading: false, isAuthenticated: false });
       throw error;
+    }
+  },
+  checkAuth: async () => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.get(`${BACKEND_URL}/verify-auth`);
+      set({ user: response.data.user, isAuthenticated: true });
+    } catch (error) {
+      set({ isLoading: false, isAuthenticated: false });
     }
   },
 }));
