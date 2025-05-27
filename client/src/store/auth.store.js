@@ -4,6 +4,9 @@ import { create } from "zustand";
 
 const BACKEND_URL = "http://localhost:3000/api/auth";
 
+axios.defaults.withCredentials = true;
+
+
 export const useStore = create((set) => ({
   user: null,
   isAuthenticated: null,
