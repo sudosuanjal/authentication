@@ -57,7 +57,7 @@ const VerifyEmail = () => {
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center justify-center gap-2">
               <InputOTP
                 maxLength={6}
                 value={value}
@@ -72,7 +72,11 @@ const VerifyEmail = () => {
                   <InputOTPSlot index={5} />
                 </InputOTPGroup>
               </InputOTP>
-              <Button variant="secondary" onClick={() => onSubmit(value)}>
+              <Button
+                variant="secondary"
+                onClick={() => onSubmit(value)}
+                className="w-[240px]"
+              >
                 {" "}
                 Verify Email
               </Button>
