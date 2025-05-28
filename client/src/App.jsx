@@ -5,7 +5,10 @@ import { Signup } from "./pages/Signup";
 import VerifyEmail from "./pages/VerifyEmail";
 import { Toaster } from "./components/ui/toaster";
 import { useStore } from "./store/auth.store";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
+import HomeLayout from "./pages/HomeLayout";
+import ForgotPassword from "./pages/ForgotPassword";
+import LogOut from "./pages/LogOut";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
@@ -40,13 +43,17 @@ function App() {
     <>
       <Routes>
         <Route
-          index
+          path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <HomeLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Home />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/logout" element={<LogOut />} />
+        </Route>
 
         <Route
           path="/login"
