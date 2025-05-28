@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BarChart } from "lucide-react";
+import { Backpack, BarChart } from "lucide-react";
 import { create } from "zustand";
 
 const BACKEND_URL = "http://localhost:3000/api/auth";
@@ -59,6 +59,16 @@ export const useStore = create((set) => ({
       });
     } catch (error) {
       set({ isLoading: false, isAuthenticated: false });
+      throw error;
+    }
+  },
+  logout: async () => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(`${BACKEND_URL}/logout`);
+      set({ isAuthenticated: false, isLoading: false, user: null });
+    } catch (error) {
+      set({ isLoading: false });
       throw error;
     }
   },
