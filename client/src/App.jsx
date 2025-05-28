@@ -9,12 +9,12 @@ import { use, useEffect } from "react";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
-  if (!isAuthenticated) {
-    return <Navigate to={"/login"} replace />;
-  }
-  if (!user.isVerified) {
-    return <Navigate to={"/verify-email"} replace />;
-  }
+  // if (!isAuthenticated) {
+  //   return <Navigate to={"/login"} replace />;
+  // }
+  // if (!user.isVerified) {
+  //   return <Navigate to={"/verify-email"} replace />;
+  // }
 
   return children;
 };
