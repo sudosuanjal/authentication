@@ -8,7 +8,6 @@ const HomeLayout = () => {
     <SidebarProvider>
       <AppSidebar />
       <main>
-        <SidebarTrigger />
         <Outlet />
       </main>
     </SidebarProvider>

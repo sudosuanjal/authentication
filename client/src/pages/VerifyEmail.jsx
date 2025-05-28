@@ -73,7 +73,7 @@ const VerifyEmail = () => {
                 </InputOTPGroup>
               </InputOTP>
               <Button
-                variant="secondary"
+                variant="destructive"
                 onClick={() => onSubmit(value)}
                 className="w-[240px]"
               >
