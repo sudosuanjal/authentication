@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import HomeLayout from "./pages/HomeLayout";
 import ForgotPassword from "./pages/ForgotPassword";
 import LogOut from "./pages/LogOut";
+import ResetPassword from "./pages/ResetPassword";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
@@ -79,7 +80,9 @@ function App() {
             </AuthenticatedUserRoute>
           }
         />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
+
       <Toaster />
     </>
   );
