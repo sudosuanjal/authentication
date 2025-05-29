@@ -30,7 +30,7 @@ export function AppSidebar() {
               </SidebarMenuItem>
 
               <SidebarMenuItem>
-                <Link to="/forgot-password">
+                <Link to="/reset-password">
                   <SidebarMenuButton>
                     <KeyRound />
                     <span>reset-password</span>

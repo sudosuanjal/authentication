@@ -1,6 +1,5 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import Loader from "@/components/Loader";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,114 +7,60 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router";
-import { useStore } from "@/store/auth.store";
 import { useToast } from "@/hooks/use-toast";
-import Loader from "@/components/Loader";
-
-const FormSchema = z
-  .object({
-    pass: z.string().min(8, {
-      message: "Password must be at least 8 characters.",
-    }),
-    confirmPass: z.string().min(8, {
-      message: "Password must be at least 8 characters.",
-    }),
-  })
-  .refine((data) => data.pass === data.confirmPass, {
-    message: "Passwords must match.",
-    path: ["confirmPass"],
-  });
+import { useStore } from "@/store/auth.store";
+import React, { useState } from "react";
 
 const ResetPassword = () => {
-  const { signup, isLoading } = useStore();
-  const navigate = useNavigate();
+  const { forgotPassword, isLoading, user } = useStore();
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
-  const form = useForm({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      pass: "",
-      confirmPass: "",
-    },
-  });
-
-  async function onSubmit(data) {}
+  const onSubmit = async () => {
+    try {
+      await forgotPassword(user.email);
+      setIsSubmitted(true);
+    } catch (error) {
+      toast({
+        title: "Signup Failed",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <Card className="w-full max-w-md ">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold text-center">
-            Reset Password
+            Reset your password?
           </CardTitle>
           <CardDescription className="text-center text-sm">
-            enter you new password
+            Click below to receive a password reset link to your email.
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* Name */}
-              <FormField
-                control={form.control}
-                name="pass"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {/* Email */}
-              <FormField
-                control={form.control}
-                name="confirmPass"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Confirm Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="password"
-                        placeholder="••••••••"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <Button type="submit" variant="destructive" className="w-full">
-                {isLoading ? (
-                  <>
-                    <Loader />
-                  </>
-                ) : (
-                  <> Submit</>
-                )}
-              </Button>
-            </form>
-          </Form>
+        <CardContent className="flex justify-center items-center">
+          {isSubmitted ? (
+            <Button variant="outline" asChild className="w-[240px]">
+              <a
+                href="https://mail.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Go to Gmail
+              </a>
+            </Button>
+          ) : (
+            <Button
+              onClick={onSubmit}
+              className="w-[240px]"
+              disabled={isLoading}
+            >
+              {isLoading ? <Loader /> : <>Send Reset Link</>}
+            </Button>
+          )}
         </CardContent>
       </Card>
     </div>

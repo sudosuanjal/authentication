@@ -1,4 +1,4 @@
-import ForgotPassword from "@/pages/ForgotPassword";
+import ForgotPassword from "@/pages/ResetPassword";
 import axios from "axios";
 import { Backpack, BarChart } from "lucide-react";
 import { create } from "zustand";
@@ -76,7 +76,9 @@ export const useStore = create((set) => ({
   ForgotPassword: async (email) => {
     set({ isLoading: true });
     try {
-      const response = axios.post(`${BACKEND_URL}/forgot-password`, { email });
+      const response = await axios.post(`${BACKEND_URL}/forgot-password`, {
+        email,
+      });
       set({ isLoading: false });
     } catch (error) {
       set({ isLoading: false });

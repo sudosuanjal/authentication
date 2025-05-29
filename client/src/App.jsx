@@ -7,8 +7,8 @@ import { Toaster } from "./components/ui/toaster";
 import { useStore } from "./store/auth.store";
 import { useEffect } from "react";
 import HomeLayout from "./pages/HomeLayout";
-import ForgotPassword from "./pages/ForgotPassword";
 import LogOut from "./pages/LogOut";
+import ResetPasswordToken from "./pages/ResetPasswordToken";
 import ResetPassword from "./pages/ResetPassword";
 
 const ProtectedRoute = ({ children }) => {
@@ -52,7 +52,7 @@ function App() {
           }
         >
           <Route index element={<Home />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/logout" element={<LogOut />} />
         </Route>
 
@@ -80,7 +80,7 @@ function App() {
             </AuthenticatedUserRoute>
           }
         />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
+        <Route path="/reset-password/:token" element={<ResetPasswordToken />} />
       </Routes>
 
       <Toaster />
