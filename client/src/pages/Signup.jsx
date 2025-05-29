@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router";
 import { useStore } from "@/store/auth.store";
 import { useToast } from "@/hooks/use-toast";
+import Loader from "@/components/Loader";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -36,7 +37,7 @@ const FormSchema = z.object({
 });
 
 export function Signup() {
-  const { signup } = useStore();
+  const { signup, isLoading } = useStore();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -133,7 +134,13 @@ export function Signup() {
               />
 
               <Button type="submit" className="w-full">
-                SignUp
+                {isLoading ? (
+                  <>
+                    <Loader />
+                  </>
+                ) : (
+                  <> SignUp</>
+                )}
               </Button>
             </form>
           </Form>

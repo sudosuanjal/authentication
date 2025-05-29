@@ -15,10 +15,11 @@ import { Link, useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/auth.store";
 import { toast } from "@/hooks/use-toast";
+import Loader from "@/components/Loader";
 
 const VerifyEmail = () => {
   const [value, setValue] = useState("");
-  const { verify } = useStore();
+  const { verify, isLoading } = useStore();
   const navigate = useNavigate();
 
   async function onSubmit(value) {
@@ -77,8 +78,13 @@ const VerifyEmail = () => {
                 onClick={() => onSubmit(value)}
                 className="w-[240px]"
               >
-                {" "}
-                Verify Email
+                {isLoading ? (
+                  <>
+                    <Loader />
+                  </>
+                ) : (
+                  <>Verify Email</>
+                )}
               </Button>
             </div>
           </div>

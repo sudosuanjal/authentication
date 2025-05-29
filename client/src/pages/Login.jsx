@@ -22,6 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Link, useNavigate } from "react-router";
 import { useStore } from "@/store/auth.store";
 import { toast } from "@/hooks/use-toast";
+import Loader from "@/components/Loader";
 
 const FormSchema = z.object({
   email: z.string().email({
@@ -33,7 +34,7 @@ const FormSchema = z.object({
 });
 
 export function Login() {
-  const { login } = useStore();
+  const { login, isLoading } = useStore();
   const navigate = useNavigate();
 
   const form = useForm({
@@ -112,7 +113,13 @@ export function Login() {
               />
 
               <Button type="submit" className="w-full">
-                SignUp
+                {isLoading ? (
+                  <>
+                    <Loader />
+                  </>
+                ) : (
+                  <>LogIn</>
+                )}
               </Button>
             </form>
           </Form>
