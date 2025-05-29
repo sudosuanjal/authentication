@@ -19,10 +19,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router";
 import { useStore } from "@/store/auth.store";
 import { useToast } from "@/hooks/use-toast";
 import Loader from "@/components/Loader";
+import { useNavigate, useParams } from "react-router";
 
 const FormSchema = z
   .object({
@@ -39,7 +39,8 @@ const FormSchema = z
   });
 
 const ResetPasswordToken = () => {
-  const { signup, isLoading } = useStore();
+  const { token } = useParams();
+  const { resetPassword, isLoading } = useStore();
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -51,7 +52,19 @@ const ResetPasswordToken = () => {
     },
   });
 
-  async function onSubmit(data) {}
+  async function onSubmit(data) {
+    try {
+      const response = await resetPassword(data.confirmPass, token);
+      navigate("/login");
+    } catch (error) {
+      toast({
+        title: "Reset Password Failed",
+        description:
+          error.response?.data?.message || "An unexpected error occurred.",
+        variant: "destructive",
+      });
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

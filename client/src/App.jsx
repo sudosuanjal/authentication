@@ -41,13 +41,6 @@ function App() {
     checkAuth();
   }, [checkAuth]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
   return (
     <>
       <Routes>
