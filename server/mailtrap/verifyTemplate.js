@@ -143,3 +143,79 @@ export const WELCOME_MAIL = `<!DOCTYPE html>
     </div>
   </body>
 </html>`;
+
+export const RESET_PASSWORD_MAIL = `<!DOCTYPE html>
+<html lang="en" style="margin:0; padding:0;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Your Password</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f7;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 40px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        color: #333;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .header h1 {
+        color: #ef4444;
+        margin: 0;
+        font-size: 26px;
+      }
+      .content {
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: left;
+      }
+      .button {
+        display: inline-block;
+        background-color: #ef4444;
+        color: #ffffff;
+        padding: 12px 24px;
+        margin: 24px 0;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+      .footer {
+        margin-top: 40px;
+        font-size: 12px;
+        color: #999;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Reset Your Password</h1>
+      </div>
+      <div class="content">
+        <p>Hello,</p>
+        <p>We received a request to reset your password. Click the button below to set a new one:</p>
+        <p style="text-align: center;">
+          <a href="{{RESET_LINK}}" class="button">Reset Password</a>
+        </p>
+        <p>If you didn’t request a password reset, you can safely ignore this email.</p>
+        <p>This link will expire in 30 minutes for your security.</p>
+        <p>Thanks,<br /><strong>The Team</strong></p>
+      </div>
+      <div class="footer">
+        &copy; 2025 Your Company. All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>`;

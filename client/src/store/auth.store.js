@@ -73,7 +73,7 @@ export const useStore = create((set) => ({
       throw error;
     }
   },
-  ForgotPassword: async (email) => {
+  forgotPassword: async (email) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(`${BACKEND_URL}/forgot-password`, {
