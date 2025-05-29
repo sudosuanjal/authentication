@@ -10,6 +10,7 @@ import HomeLayout from "./pages/HomeLayout";
 import LogOut from "./pages/LogOut";
 import ResetPasswordToken from "./pages/ResetPasswordToken";
 import ResetPassword from "./pages/ResetPassword";
+import { Loader } from "lucide-react";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
@@ -25,9 +26,8 @@ const ProtectedRoute = ({ children }) => {
 
 const AuthenticatedUserRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
-  console.log("AuthenticatedUserRoute: " + user);
 
-  if (isAuthenticated && user.isVerified) {
+  if (isAuthenticated && user?.isVerified) {
     return <Navigate to={"/"} replace />;
   }
 
@@ -35,11 +35,19 @@ const AuthenticatedUserRoute = ({ children }) => {
 };
 
 function App() {
-  const { checkAuth } = useStore();
+  const { checkAuth, isLoading } = useStore();
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader />
+      </div>
+    );
+  }
   return (
     <>
       <Routes>
@@ -72,14 +80,7 @@ function App() {
             </AuthenticatedUserRoute>
           }
         />
-        <Route
-          path="/verify-email"
-          element={
-            <AuthenticatedUserRoute>
-              <VerifyEmail />
-            </AuthenticatedUserRoute>
-          }
-        />
+        <Route path="/verify-email" element={<VerifyEmail />} />
         <Route path="/reset-password/:token" element={<ResetPasswordToken />} />
       </Routes>
 

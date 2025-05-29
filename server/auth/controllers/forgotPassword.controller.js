@@ -1,5 +1,4 @@
 import crypto from "crypto";
-//import { configDotenv } from "dotenv";
 
 import { User } from "../../models/user.model.js";
 import { sentResetPassword } from "../../mailtrap/sendVerifyEmail.js";
@@ -21,7 +20,7 @@ export const forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; //1 hour
     await user.save();
 
-    const link = `${process.env.CLIENT_URL}/reset-token/${resetToken}`;
+    const link = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
     await sentResetPassword(user.email, link);
 
     res.status(200).json({ message: "password reset link sent" });

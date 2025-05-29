@@ -10,6 +10,7 @@ export const authenticateUser = async (req, res) => {
     if (!user) {
       return res.status(401).json({ message: "user not found" });
     }
+    console.log("chekkk fr auth");
 
     res.status(200).json({ message: "user authenticated", user });
   } catch (error) {

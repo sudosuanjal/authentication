@@ -9,7 +9,7 @@ axios.defaults.withCredentials = true;
 
 export const useStore = create((set) => ({
   user: null,
-  isAuthenticated: null,
+  isAuthenticated: false,
   isLoading: null,
   signup: async (email, password, name) => {
     set({ isLoading: true });
@@ -94,7 +94,10 @@ export const useStore = create((set) => ({
         isAuthenticated: true,
         isLoading: false,
       });
+      console.log("from authstore");
     } catch (error) {
+      console.log("error from check auth");
+
       set({ isLoading: false, isAuthenticated: false });
     }
   },
