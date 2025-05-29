@@ -76,7 +76,11 @@ export const useStore = create((set) => ({
     set({ isLoading: true });
     try {
       const response = await axios.get(`${BACKEND_URL}/verify-auth`);
-      set({ user: response.data.user, isAuthenticated: true });
+      set({
+        user: response.data.user,
+        isAuthenticated: true,
+        isLoading: false,
+      });
     } catch (error) {
       set({ isLoading: false, isAuthenticated: false });
     }

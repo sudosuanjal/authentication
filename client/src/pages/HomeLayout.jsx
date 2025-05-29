@@ -7,8 +7,11 @@ const HomeLayout = () => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
-        <Outlet />
+      <main className="flex-1 h-screen overflow-hidden">
+        <SidebarTrigger />
+        <div className="h-full overflow-auto">
+          <Outlet />
+        </div>
       </main>
     </SidebarProvider>
   );
