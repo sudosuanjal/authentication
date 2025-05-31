@@ -1,7 +1,4 @@
-import ResetPassword from "@/pages/ResetPassword";
-import ForgotPassword from "@/pages/ResetPassword";
 import axios from "axios";
-import { Backpack, BarChart } from "lucide-react";
 import { create } from "zustand";
 
 const BACKEND_URL = "http://localhost:3000/api/auth";
@@ -110,8 +107,6 @@ export const useStore = create((set) => ({
       });
       console.log("from authstore");
     } catch (error) {
-      console.log("error from check auth");
-
       set({ isLoading: false, isAuthenticated: false });
     }
   },

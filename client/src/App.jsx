@@ -10,7 +10,7 @@ import HomeLayout from "./pages/HomeLayout";
 import LogOut from "./pages/LogOut";
 import ResetPasswordToken from "./pages/ResetPasswordToken";
 import ResetPassword from "./pages/ResetPassword";
-import { Loader } from "lucide-react";
+import { ForgotPassword } from "./pages/ForgotPassword";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, user } = useStore();
@@ -35,7 +35,7 @@ const AuthenticatedUserRoute = ({ children }) => {
 };
 
 function App() {
-  const { checkAuth, isLoading } = useStore();
+  const { checkAuth } = useStore();
 
   useEffect(() => {
     checkAuth();
@@ -74,6 +74,7 @@ function App() {
           }
         />
         <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPasswordToken />} />
       </Routes>
 
