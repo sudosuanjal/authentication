@@ -22,7 +22,8 @@ import { Input } from "@/components/ui/input";
 import { useStore } from "@/store/auth.store";
 import { useToast } from "@/hooks/use-toast";
 import Loader from "@/components/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const FormSchema = z.object({
   email: z.string().email({
@@ -31,9 +32,16 @@ const FormSchema = z.object({
 });
 
 export function ForgotPassword() {
-  const { forgotPassword, isLoading } = useStore();
+  const { forgotPassword, isLoading, isAuthenticated, user } = useStore();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && user?.isVerified) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const form = useForm({
     resolver: zodResolver(FormSchema),

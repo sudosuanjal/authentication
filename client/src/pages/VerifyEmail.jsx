@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,8 +19,14 @@ import Loader from "@/components/Loader";
 
 const VerifyEmail = () => {
   const [value, setValue] = useState("");
-  const { verify, isLoading } = useStore();
+  const { verify, isLoading, isAuthenticated, user } = useStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated && user?.isVerified) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
 
   async function onSubmit(value) {
     try {
