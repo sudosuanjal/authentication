@@ -1,17 +1,23 @@
-import { Bars } from "react-loader-spinner";
-
-const Loader = () => {
+export default function Loader() {
   return (
-    <Bars
-      height="30"
-      width="30"
-      color="#ffffff"
-      ariaLabel="bars-loading"
-      wrapperStyle={{}}
-      wrapperClass=""
-      visible={true}
-    />
-  );
-};
+    <div className="inline-flex items-center gap-2">
+      <div
+        className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full"
+        style={{
+          animation: "spin 1s linear infinite",
+        }}
+      ></div>
 
-export default Loader;
+      <style jsx>{`
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}
