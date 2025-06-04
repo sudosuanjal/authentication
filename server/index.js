@@ -24,7 +24,6 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 
-// 🔧 Serve frontend if in production
 if (process.env.NODE_ENV === "production") {
   const clientDistPath = path.join(__dirname, "..", "client", "dist");
 
