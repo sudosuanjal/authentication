@@ -96,6 +96,7 @@ export const useStore = create((set) => ({
       await axios.post(`${BACKEND_URL}/logout`);
       set({ isAuthenticated: false, isLoading: false, user: null });
     } catch (error) {
+      set({ isAuthenticated: false, isLoading: false, user: null });
       throw error;
     }
   },
